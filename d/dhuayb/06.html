@@ -1037,13 +1037,13 @@ button{font-family:inherit;font-synthesis:none}
 <script>
 // نسخة الويب: المعلّم من ?t= وفصوله من rosters.js، وزرّ البوابة ورابط التناول التالي يحملانه
 (function () {
-  var W = {"g": "10", "s": "dhuayb"}, q = new URLSearchParams(location.search), t = q.get('t') || '', R = window.TALHA_ROSTERS || {};
+  var W = {"g": "10", "s": "dhuayb", "portal": "index.html"}, q = new URLSearchParams(location.search), t = q.get('t') || '', R = window.TALHA_ROSTERS || {};
   var d = document.getElementById('rl-data');
   if (d) d.textContent = JSON.stringify(R[t] || { teacher: t, classes: [] });
   document.querySelectorAll('[data-tn]').forEach(function (e) { e.textContent = t; });
   if (!t) document.querySelectorAll('.tch, .who').forEach(function (e) { e.style.visibility = 'hidden'; });
   var h = new URLSearchParams(); h.set('g', W.g); if (t) h.set('t', t); h.set('s', W.s);
-  window.TALHA_PORTAL = '../../index.html#' + h.toString();
+  window.TALHA_PORTAL = '../../' + encodeURIComponent(W.portal) + '#' + h.toString();
   if (location.search) document.querySelectorAll('a.next-link').forEach(function (a) { a.setAttribute('href', a.getAttribute('href').split('?')[0] + location.search); });
 })();
 </script>
@@ -1579,7 +1579,7 @@ html.still .pn-tm.warn{animation:none}
     { c: '#1F7A4D', d: '#8EE2AE', n: 'الأخضر' },
   ];
   const SIZES = [{ w: 3, n: 'رفيع' }, { w: 6.5, n: 'متوسّط' }, { w: 13, n: 'عريض' }];
-  const LASER_HOLD = 3000, LASER_FADE = 450;   // يُمسح خط الليزر بعد رفع القلم بثلاث ثوانٍ
+  const LASER_HOLD = 1200, LASER_FADE = 300;   // يختفي خط الليزر تماماً بعد رفع القلم بثانية ونصف
   const TIMER = 90;
   const PORTAL = '../../../' + encodeURIComponent('بوابة دروس قسم اللغة العربية') + '.html';
 
@@ -1609,7 +1609,7 @@ html.still .pn-tm.warn{animation:none}
   stage.append(bd, ink, lz);
 
   // ── أزرار الشريط السفلي ──
-  const bPen = nb(I.pen, 'القلم: الكتابة على الشريحة'), bLz = nb(I.laser, 'الليزر: خطٌّ أحمر يُمسح بعد ثلاث ثوانٍ'),
+  const bPen = nb(I.pen, 'القلم: الكتابة على الشريحة'), bLz = nb(I.laser, 'الليزر: خطٌّ أحمر يُمسح بعد ثانيةٍ ونصف'),
         bBoard = nb(I.board, 'السبّورة: صفحة خالية للشرح'), bTm = nb(I.clock, 'مؤقّت ٩٠ ثانية ثم الانتقال إلى الشريحة التالية', 'pn-tb');
   bTm.insertAdjacentHTML('beforeend', '<b>' + AR(TIMER) + '</b>');
   // زرّ البوابة يعود إلى صفحة هذا المعلّم وهذا الدرس: <الجذر>/<الصف>/<عروض الدرس>/<المعلّم>/الملف.html
